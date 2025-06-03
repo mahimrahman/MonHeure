@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mon_heure/core/di/service_locator.dart';
+import 'package:mon_heure/core/routing/app_router.dart';
 import 'package:mon_heure/core/theme/app_theme.dart';
-import 'package:mon_heure/features/time_tracking/presentation/pages/home_page.dart';
 
 /// The main entry point of the application.
 void main() async {
@@ -32,7 +32,8 @@ class MonHeureApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const HomePage(),
+      initialRoute: AppRouter.home,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 } 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mon_heure/core/routing/app_router.dart';
 import 'package:mon_heure/features/time_tracking/presentation/providers/time_entry_provider.dart';
 import 'package:mon_heure/features/time_tracking/presentation/widgets/time_entry_list.dart';
 import 'package:mon_heure/features/time_tracking/presentation/widgets/timer_display.dart';
@@ -18,13 +19,13 @@ class HomePage extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.bar_chart),
             onPressed: () {
-              // TODO: Navigate to statistics page
+              Navigator.pushNamed(context, AppRouter.reports);
             },
           ),
           IconButton(
-            icon: const Icon(Icons.file_download),
+            icon: const Icon(Icons.settings),
             onPressed: () {
-              // TODO: Export time entries
+              Navigator.pushNamed(context, AppRouter.settings);
             },
           ),
         ],

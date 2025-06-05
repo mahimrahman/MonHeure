@@ -45,6 +45,18 @@ The project follows Clean Architecture principles:
 - **Domain**: Entities and repository interfaces
 - **Data**: Repository implementations and data sources
 
+### Data Models
+
+The project uses a dual-model approach for data persistence:
+
+- **PunchSession**: A Freezed model for business logic and JSON serialization
+- **PunchSessionEntity**: A Hive model for local storage
+
+This separation ensures:
+- Type-safe business logic with immutable models
+- Efficient local storage with Hive
+- Clear separation of concerns between storage and business logic
+
 ## Dependencies
 
 - `hooks_riverpod`: State management

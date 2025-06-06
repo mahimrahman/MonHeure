@@ -77,3 +77,10 @@ This separation ensures:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+
+## Testing
+
+To run the tests, use the following command:
+```bash
+flutter test test/features/time_tracking/data/repositories/hive_punch_session_repository_test.dart
+``` 

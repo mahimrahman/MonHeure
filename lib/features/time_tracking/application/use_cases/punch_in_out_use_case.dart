@@ -1,0 +1,44 @@
+import 'package:mon_heure/features/time_tracking/domain/entities/punch_session.dart';
+import 'package:mon_heure/features/time_tracking/domain/repositories/punch_session_repository.dart';
+import 'package:uuid/uuid.dart';
+
+class PunchInOutUseCase {
+  final PunchSessionRepository _repository;
+  final _uuid = const Uuid();
+
+  PunchInOutUseCase(this._repository);
+
+  Future<PunchSession?> execute() async {
+    final sessions = await _repository.fetchRange(
+      DateTime.now().subtract(const Duration(days: 1)),
+      DateTime.now().add(const Duration(days: 1)),
+    );
+
+    // Find any open session
+    final openSession = sessions.firstWhere(
+      (session) => session.punchOut == null,
+      orElse: () => null,
+    );
+
+    if (openSession != null) {
+      // Close the open session
+      final closedSession = PunchSession(
+        id: openSession.id,
+        punchIn: openSession.punchIn,
+        punchOut: DateTime.now(),
+        note: openSession.note,
+        isEdited: openSession.isEdited,
+      );
+      await _repository.update(closedSession);
+      return closedSession;
+    } else {
+      // Create a new session
+      final newSession = PunchSession(
+        id: _uuid.v4(),
+        punchIn: DateTime.now(),
+      );
+      await _repository.add(newSession);
+      return newSession;
+    }
+  }
+} 

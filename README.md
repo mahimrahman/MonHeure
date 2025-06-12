@@ -9,13 +9,15 @@ An elegant cross-platform personal punch-in/punch-out tracker built with Flutter
 - Local storage with Hive
 - Statistics and reporting
 - PDF export functionality
+- Calendar view for time entries
+- Beautiful charts and visualizations
 
 ## Getting Started
 
 ### Prerequisites
 
 - Flutter SDK (stable channel)
-- Dart SDK
+- Dart SDK (>=3.2.0)
 - Android Studio / Xcode for mobile development
 
 ### Installation
@@ -59,12 +61,23 @@ This separation ensures:
 
 ## Dependencies
 
+### Main Dependencies
 - `hooks_riverpod`: State management
+- `flutter_hooks`: React hooks for Flutter
 - `hive`: Local storage
 - `fl_chart`: Data visualization
 - `pdf` & `printing`: Report generation
 - `intl`: Internationalization
 - `freezed`: Code generation for immutable models
+- `table_calendar`: Calendar widget for time entry visualization
+
+### Development Dependencies
+- `build_runner`: Code generation
+- `freezed`: Immutable model generation
+- `json_serializable`: JSON serialization
+- `hive_generator`: Hive model generation
+- `flutter_launcher_icons`: App icon generation
+- `flutter_lints`: Linting rules
 
 ## Contributing
 
@@ -82,5 +95,33 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 To run the tests, use the following command:
 ```bash
-flutter test test/features/time_tracking/data/repositories/hive_punch_session_repository_test.dart
+flutter test
+```
+
+## Project Structure
+
+```
+lib/
+├── features/
+│   └── time_tracking/
+│       ├── data/
+│       ├── domain/
+│       └── presentation/
+├── core/
+└── main.dart
+```
+
+## Building
+
+To build the app for different platforms:
+
+```bash
+# For Android
+flutter build apk
+
+# For iOS
+flutter build ios
+
+# For Web
+flutter build web
 ``` 

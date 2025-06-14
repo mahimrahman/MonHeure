@@ -8,8 +8,8 @@ part 'punch_session.g.dart';
 class PunchSession with _$PunchSession {
   const factory PunchSession({
     required String id,
-    required DateTime punchIn,
-    DateTime? punchOut,
+    required DateTime startTime,
+    DateTime? endTime,
     String? note,
     @Default(false) bool isEdited,
   }) = _PunchSession;

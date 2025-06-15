@@ -13,10 +13,10 @@ class PunchSession with _$PunchSession {
     required String id,
     
     /// The time when the user punched in.
-    required DateTime punchIn,
+    required DateTime startTime,
     
     /// The time when the user punched out, if the session is completed.
-    DateTime? punchOut,
+    DateTime? endTime,
     
     /// Optional note for the punch session.
     String? note,
@@ -31,16 +31,16 @@ class PunchSession with _$PunchSession {
 
   factory PunchSession.fromEntity(PunchSessionEntity entity) => PunchSession(
     id: entity.id,
-    punchIn: entity.punchIn,
-    punchOut: entity.punchOut,
+    startTime: entity.startTime,
+    endTime: entity.endTime,
     note: entity.note,
     isEdited: entity.isEdited,
   );
 
   PunchSessionEntity toEntity() => PunchSessionEntity(
     id: id,
-    punchIn: punchIn,
-    punchOut: punchOut,
+    startTime: startTime,
+    endTime: endTime,
     note: note,
     isEdited: isEdited,
   );

@@ -19,8 +19,8 @@ class HivePunchSessionRepository implements PunchSessionRepository {
     final box = await _getBox();
     final entity = PunchSessionEntity(
       id: session.id,
-      punchIn: session.punchIn,
-      punchOut: session.punchOut,
+      startTime: session.startTime,
+      endTime: session.endTime,
       note: session.note,
       isEdited: session.isEdited,
     );
@@ -38,8 +38,8 @@ class HivePunchSessionRepository implements PunchSessionRepository {
     yield* box.watch().map((_) {
       return box.values.map((entity) => PunchSession(
         id: entity.id,
-        punchIn: entity.punchIn,
-        punchOut: entity.punchOut,
+        startTime: entity.startTime,
+        endTime: entity.endTime,
         note: entity.note,
         isEdited: entity.isEdited,
       )).toList();
@@ -51,12 +51,12 @@ class HivePunchSessionRepository implements PunchSessionRepository {
     final box = await _getBox();
     return box.values
         .where((entity) => 
-            entity.punchIn.isAfter(from.subtract(const Duration(days: 1))) &&
-            entity.punchIn.isBefore(to.add(const Duration(days: 1))))
+            entity.startTime.isAfter(from.subtract(const Duration(days: 1))) &&
+            entity.startTime.isBefore(to.add(const Duration(days: 1))))
         .map((entity) => PunchSession(
           id: entity.id,
-          punchIn: entity.punchIn,
-          punchOut: entity.punchOut,
+          startTime: entity.startTime,
+          endTime: entity.endTime,
           note: entity.note,
           isEdited: entity.isEdited,
         ))

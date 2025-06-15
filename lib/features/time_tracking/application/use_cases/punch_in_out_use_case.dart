@@ -16,7 +16,7 @@ class PunchInOutUseCase {
 
     // Find any open session
     final openSession = sessions.firstWhere(
-      (session) => session.punchOut == null,
+      (session) => session.endTime == null,
       orElse: () => null,
     );
 
@@ -24,8 +24,8 @@ class PunchInOutUseCase {
       // Close the open session
       final closedSession = PunchSession(
         id: openSession.id,
-        punchIn: openSession.punchIn,
-        punchOut: DateTime.now(),
+        startTime: openSession.startTime,
+        endTime: DateTime.now(),
         note: openSession.note,
         isEdited: openSession.isEdited,
       );
@@ -35,7 +35,7 @@ class PunchInOutUseCase {
       // Create a new session
       final newSession = PunchSession(
         id: _uuid.v4(),
-        punchIn: DateTime.now(),
+        startTime: DateTime.now(),
       );
       await _repository.add(newSession);
       return newSession;

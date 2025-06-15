@@ -22,7 +22,7 @@ class PunchStateNotifier extends StateNotifier<PunchState> {
     try {
       final session = await _punchInOutUseCase.execute();
       state = PunchState(
-        isPunchedIn: session?.punchOut == null,
+        isPunchedIn: session?.endTime == null,
         currentSession: session,
       );
     } catch (e) {

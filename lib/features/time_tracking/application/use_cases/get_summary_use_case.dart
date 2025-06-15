@@ -37,12 +37,12 @@ class GetSummaryUseCase {
 
   Duration _calculateTotalTime(List<PunchSession> sessions, DateTime startDate) {
     return sessions
-        .where((session) => session.punchIn.isAfter(startDate))
+        .where((session) => session.startTime.isAfter(startDate))
         .fold<Duration>(
           Duration.zero,
           (total, session) {
-            if (session.punchOut == null) return total;
-            return total + session.punchOut!.difference(session.punchIn);
+            if (session.endTime == null) return total;
+            return total + session.endTime!.difference(session.startTime);
           },
         );
   }

@@ -75,7 +75,7 @@ class HomePage extends ConsumerWidget {
   Widget _buildTimeline(BuildContext context, List<PunchSession> sessions) {
     final today = DateTime.now();
     final todaySessions = sessions.where((session) {
-      final sessionDate = session.punchIn;
+      final sessionDate = session.startTime;
       return sessionDate.year == today.year &&
           sessionDate.month == today.month &&
           sessionDate.day == today.day;
@@ -109,7 +109,7 @@ class _TimelineItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timeFormat = DateFormat('HH:mm');
-    final duration = session.punchOut?.difference(session.punchIn) ?? Duration.zero;
+    final duration = session.endTime?.difference(session.startTime) ?? Duration.zero;
     final hours = duration.inHours;
     final minutes = duration.inMinutes.remainder(60);
 
@@ -124,7 +124,7 @@ class _TimelineItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${timeFormat.format(session.punchIn)} - ${session.punchOut != null ? timeFormat.format(session.punchOut!) : '...'}',
+                    '${timeFormat.format(session.startTime)} - ${session.endTime != null ? timeFormat.format(session.endTime!) : '...'}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   if (session.note != null) ...[
@@ -137,7 +137,7 @@ class _TimelineItem extends StatelessWidget {
                 ],
               ),
             ),
-            if (session.punchOut != null)
+            if (session.endTime != null)
               Text(
                 '$hours:${minutes.toString().padLeft(2, '0')}',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(

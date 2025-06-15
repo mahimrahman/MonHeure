@@ -8,10 +8,10 @@ class PunchSessionEntity extends HiveObject {
   final String id;
 
   @HiveField(1)
-  final DateTime punchIn;
+  final DateTime startTime;
 
   @HiveField(2)
-  final DateTime? punchOut;
+  final DateTime? endTime;
 
   @HiveField(3)
   final String? note;
@@ -21,8 +21,8 @@ class PunchSessionEntity extends HiveObject {
 
   PunchSessionEntity({
     required this.id,
-    required this.punchIn,
-    this.punchOut,
+    required this.startTime,
+    this.endTime,
     this.note,
     this.isEdited = false,
   });

@@ -15,10 +15,14 @@ class PunchInOutUseCase {
     );
 
     // Find any open session
-    final openSession = sessions.firstWhere(
-      (session) => session.endTime == null,
-      orElse: () => null,
-    );
+    PunchSession? openSession;
+    try {
+      openSession = sessions.firstWhere(
+        (session) => session.endTime == null,
+      );
+    } catch (e) {
+      openSession = null;
+    }
 
     if (openSession != null) {
       // Close the open session

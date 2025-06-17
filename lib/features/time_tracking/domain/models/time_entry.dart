@@ -6,7 +6,7 @@ part 'time_entry.g.dart';
 
 /// Represents a single time entry in the application.
 @freezed
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class TimeEntry with _$TimeEntry {
   /// Creates a new instance of [TimeEntry].
   const factory TimeEntry({

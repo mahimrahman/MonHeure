@@ -27,12 +27,23 @@ class HomePage extends ConsumerWidget {
           _buildPunchButton(context, ref, punchState),
           const SizedBox(height: 32),
           Expanded(
-            child: sessionsStream.when(
-              data: (sessions) => _buildTimeline(context, sessions),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, stack) => Center(
-                child: Text('Error: $error', style: Theme.of(context).textTheme.bodyLarge),
-              ),
+            child: StreamBuilder<List<PunchSession>>(
+              stream: sessionsStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}', 
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  );
+                }
+                if (!snapshot.hasData) {
+                  return const Center(child: Text('No data available'));
+                }
+                return _buildTimeline(context, snapshot.data!);
+              },
             ),
           ),
         ],

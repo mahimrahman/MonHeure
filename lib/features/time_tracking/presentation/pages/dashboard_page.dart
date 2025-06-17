@@ -142,7 +142,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> with SingleTicker
                   child: _buildStatItem(
                     context,
                     'Today',
-                    summary.last7Days.inHours / 7,
+                    summary.last7Days.inHours / 7.0,
                     Icons.today,
                   ),
                 ),
@@ -150,7 +150,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> with SingleTicker
                   child: _buildStatItem(
                     context,
                     'This Week',
-                    summary.last7Days.inHours,
+                    summary.last7Days.inHours.toDouble(),
                     Icons.calendar_today,
                   ),
                 ),
@@ -158,7 +158,7 @@ class _DashboardPageState extends ConsumerState<DashboardPage> with SingleTicker
                   child: _buildStatItem(
                     context,
                     'This Month',
-                    summary.last30Days.inHours,
+                    summary.last30Days.inHours.toDouble(),
                     Icons.calendar_month,
                   ),
                 ),
@@ -246,7 +246,6 @@ class _DashboardPageState extends ConsumerState<DashboardPage> with SingleTicker
                   barTouchData: BarTouchData(
                     enabled: true,
                     touchTooltipData: BarTouchTooltipData(
-                      tooltipBgColor: Theme.of(context).colorScheme.surface,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         return BarTooltipItem(
                           '${rod.toY.toStringAsFixed(1)}h',

@@ -26,7 +26,9 @@ class ReportService {
                   final endTime = session.endTime != null
                       ? DateFormat('HH:mm').format(session.endTime!)
                       : 'Ongoing';
-                  final duration = session.duration?.toString() ?? 'N/A';
+                  final duration = session.endTime != null
+                      ? _formatDuration(session.endTime!.difference(session.startTime))
+                      : 'N/A';
                   
                   return [
                     DateFormat('yyyy-MM-dd').format(session.startTime),
@@ -57,7 +59,9 @@ class ReportService {
       final endTime = session.endTime != null
           ? DateFormat('HH:mm').format(session.endTime!)
           : 'Ongoing';
-      final duration = session.duration?.toString() ?? 'N/A';
+      final duration = session.endTime != null
+          ? _formatDuration(session.endTime!.difference(session.startTime))
+          : 'N/A';
       
       buffer.writeln(
         '${DateFormat('yyyy-MM-dd').format(session.startTime)},'
@@ -68,5 +72,11 @@ class ReportService {
     }
     
     return buffer.toString();
+  }
+
+  String _formatDuration(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes.remainder(60);
+    return '${hours}h ${minutes}m';
   }
 } 

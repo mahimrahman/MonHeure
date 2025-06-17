@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mon_heure/core/di/service_locator.dart';
 import 'package:mon_heure/core/routing/app_router.dart';
 import 'package:mon_heure/core/theme/app_theme.dart';
-import 'package:mon_heure/features/time_tracking/data/punch_session.dart';
 import 'package:mon_heure/features/time_tracking/data/punch_session_entity.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +18,6 @@ void main() async {
   await Hive.initFlutter();
   
   // Register Hive adapters
-  Hive.registerAdapter(PunchSessionAdapter());
   Hive.registerAdapter(PunchSessionEntityAdapter());
 
   final container = ProviderContainer();

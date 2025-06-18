@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../domain/entities/session.dart';
+import '../../domain/entities/punch_session.dart';
 
 class EditSessionDialog extends StatefulWidget {
-  final Session session;
-  final Function(Session) onSave;
+  final PunchSession session;
+  final Function(PunchSession) onSave;
   final VoidCallback onDelete;
 
   const EditSessionDialog({
@@ -27,7 +27,7 @@ class _EditSessionDialogState extends State<EditSessionDialog> {
   void initState() {
     super.initState();
     _startTime = TimeOfDay.fromDateTime(widget.session.startTime);
-    _endTime = TimeOfDay.fromDateTime(widget.session.endTime);
+    _endTime = TimeOfDay.fromDateTime(widget.session.endTime ?? DateTime.now());
     _noteController = TextEditingController(text: widget.session.note);
   }
 
@@ -117,10 +117,12 @@ class _EditSessionDialogState extends State<EditSessionDialog> {
             );
 
             widget.onSave(
-              Session(
+              PunchSession(
+                id: widget.session.id,
                 startTime: startDateTime,
                 endTime: endDateTime,
                 note: _noteController.text.isEmpty ? null : _noteController.text,
+                isEdited: true,
               ),
             );
             Navigator.pop(context);
